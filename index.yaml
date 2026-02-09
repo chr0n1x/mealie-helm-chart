@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  mealie:
+  - apiVersion: 1.0.0
+    created: "2026-02-09T02:34:59.744994395Z"
+    description: simple mealie deployment
+    digest: 637f038df48f5fadc167d345ce9c3e8bad48fa4212369024a70256a910a3dcd8
+    name: mealie
+    type: application
+    urls:
+    - https://github.com/chr0n1x/mealie-helm-chart/releases/download/mealie-0.0.1/mealie-0.0.1.tgz
+    version: 0.0.1
+generated: "2026-02-09T02:34:59.744999364Z"
