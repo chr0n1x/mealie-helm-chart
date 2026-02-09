@@ -13,3 +13,5 @@ wanted something with a transparent build/publish pipeline. so here we go. this 
 3. your own ingress (I run traefik, but you can bring your own and hook into this deployment)
 
 that's really it
+
+To see how I wrap this chart with other bits of functionality, see [my wrapper chart in my homelab cluster git-ops repo](https://github.com/chr0n1x/rpi-talos/tree/main/k8s/argocd-deploy/mealie)
