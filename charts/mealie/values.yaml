@@ -15,7 +15,7 @@ deployment:
 
 persistence:
   enabled: true
-  size: 8Gi
+  size: 4Gi
   storageClass: smb
   # for the CSI driver SMB - this chart will create a PVC
   # which will then trigger the driver to create the PV itself
