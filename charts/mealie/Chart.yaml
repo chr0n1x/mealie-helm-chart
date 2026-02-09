@@ -1,0 +1,6 @@
+---
+apiVersion: 1.0.0
+name: mealie
+version: 0.0.1
+description: simple mealie deployment
+type: application

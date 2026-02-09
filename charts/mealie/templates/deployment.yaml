@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie
+  namespace: {{ .Release.Namespace | default "mealie" }}
+spec:
+  replicas: {{ default 1 .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: mealie
+  {{- with .Values.deployment.strategy }}
+  strategy:
+{{ . | toYaml | indent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: mealie
+    spec:
+      {{- with .Values.deployment.tolerations }}
+      tolerations:
+{{ . | toYaml | indent 8 }}
+      {{- end }}
+
+      {{- with .Values.deployment.nodeSelector }}
+      nodeSelector:
+{{ . | toYaml | indent 8 }}
+      {{- end }}
+
+      containers:
+        - name: mealie-app
+          image: {{ .Values.deployment.image | default "ghcr.io/mealie-recipes/mealie:latest" }}
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy | default "Always" }}
+          ports:
+            - containerPort: 9000
+
+        {{- if and (.Values.deployment.extraEnvVars) (gt (len .Values.deployment.extraEnvVars) 0) }}
+          env:
+{{ .Values.deployment.extraEnvVars | toYaml | indent 10 }}
+        {{- end }}
+
+      {{- if or .Values.persistence.enabled .Values.db.persistence.enabled }}
+          volumeMounts:
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
+            - name: data-volume
+              mountPath: /app/data
+      {{- end }}
+
+      {{- if or .Values.persistence.enabled .Values.db.persistence.enabled }}
+      volumes:
+      {{- end }}
+
+      {{- if .Values.persistence.enabled }}
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: mealie-pvc
+      {{- end }}

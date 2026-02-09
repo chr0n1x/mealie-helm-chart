@@ -1,0 +1,11 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: mealie-pdb
+  namespace: {{ .Release.Namespace | default "mealie" }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: mealie
